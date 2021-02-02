@@ -11,6 +11,7 @@ $ node parser
 - The projects includes file.txt which is the default file for the parser
 - Only uses fs to read files
 - There is a config object that contains all the values
+- The object returns array of the comments and one with errors
 ## Example of the config object
 >{
   host: 'test.com',
