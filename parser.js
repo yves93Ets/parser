@@ -3,6 +3,7 @@ const fs = require('fs');
 const configureFromFile = (configFile = "file.txt") => {
     const config = {}
     const comments = []
+    const errors = []
     const trueArr = ["on", "true", "yes", "Yes", "True"]
     const falseArr = ["off", "false", "no", "No", "False"]
     const isInteger = (str) => !/\D/.test(str)
@@ -21,17 +22,22 @@ const configureFromFile = (configFile = "file.txt") => {
         lines.forEach((line) => {
             if (line[0] == "#") {
                 comments.push(line)
+                return
             }
-            else {
-                const [key, value] = line.replace(/\s/g, "").split("=")
-                const val = converToType(value)
-                config[key] = val
+            const [key, value] = line.replace(/\s/g, "").split("=")
+
+            if (value === "" || !value) {
+                errors.push(`Error caused by key: ${key} and value: ${value}`)
+                return
             }
+            const val = converToType(value)
+            config[key] = val
         });
     } catch (err) {
         console.error(err);
     }
     config.comments = comments
+    config.errors = errors
     return config
 }
 
