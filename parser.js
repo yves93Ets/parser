@@ -1,8 +1,6 @@
 const fs = require('fs');
 
 const configureFromFile = (configFile = "file.txt") => {
-
-
     const config = {}
     const comments = []
     const trueArr = ["on", "true", "yes", "Yes", "True"]
@@ -38,8 +36,8 @@ const configureFromFile = (configFile = "file.txt") => {
 }
 
 const config = configureFromFile()
-console.log(config)
 config.comments.map((comment, idx) => {
     console.log(`This is the #${idx + 1} comment \n -- ${comment} -- \n`)
-
 })
+
+console.log(config)
